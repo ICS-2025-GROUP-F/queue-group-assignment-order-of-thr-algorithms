@@ -1,0 +1,33 @@
+from datetime import datetime, timedelta
+
+class PrintJob:
+    def __init__(self, user, job_id, priority, expiry_minutes):
+        self.user = user
+        self.job_id = job_id
+        self.priority = priority
+        self.creation_time = datetime.now()
+        self.expiry_time = self.creation_time + timedelta(minutes=expiry_minutes)
+        self.status = 'active'
+
+    def is_expired(self):
+        return datetime.now() >= self.expiry_time
+
+    def expire(self):
+        self.status = 'expired'
+
+    def get_waiting_time(self):
+        return (datetime.now() - self.creation_time).total_seconds() / 60
+
+
+def notification(job):
+    print(f" Notification: The print job {job.job_id} for user {job.user} has just expired.")
+
+
+
+
+
+
+
+
+
+
